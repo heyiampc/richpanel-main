@@ -1,47 +1,60 @@
-import React from "react";
-import { useNavigate } from 'react-router-dom';
+// PaymentForm.js
 
+import React from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
 import "./PaymentForm.css"; // Import your CSS file for styling
 
 const PaymentForm = () => {
+    const location = useLocation();
+    const selectedPlan = location.state?.selectedPlan;
 
     const navigate = useNavigate();
 
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     navigate('/MyPlan');
+    // };
     const handleSubmit = (e) => {
-        e.preventDefault();
-        navigate('/myPlan');
-      };
+      e.preventDefault();
+  
+      if (selectedPlan.price === '₹ 100') {
+        window.location.href = 'https://buy.stripe.com/dR69Df9Kv8twbBKbIJ'; // Redirect to Stripe checkout for Plan 1
+      } if (selectedPlan.price === '₹ 200'){
+        window.location.href = 'https://buy.stripe.com/fZe7v7aOz39c21acMO'; // Redirect to Stripe checkout for other plans
+      }
+      else{
+        window.location.href = 'https://buy.stripe.com/fZe7v7aOz39c21acMO';
+      }
+    };
 
+    return (
+        <div className="container">
+            <div className="complete-payment">
+                <h2>Complete Payment</h2>
+                <form>
+                    <label htmlFor="card-number">Card Number</label>
+                    <input type="text" id="card-number" name="card-number" placeholder="Enter card number" />
 
-  return (
-    <div className="container">
-      <div className="complete-payment">
-        <h2>Complete Payment</h2>
-        <form>
-          <label htmlFor="card-number">Card Number</label>
-          <input type="text" id="card-number" name="card-number" placeholder="Enter card number" />
+                    <label htmlFor="expiry-date">Expiry Date</label>
+                    <input type="text" id="expiry-date" name="expiry-date" placeholder="Enter expiry date" />
 
-          <label htmlFor="card-name">Name on Card</label>
-          <input type="text" id="card-name" name="card-name" placeholder="Enter name on card" />
+                    <label htmlFor="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" placeholder="Enter CVV" />
 
-          <label htmlFor="expiry-date">Expiry Date</label>
-          <input type="text" id="expiry-date" name="expiry-date" placeholder="Enter expiry date" />
+                    <button onClick={handleSubmit}>Confirm Payment</button>
+                </form>
+            </div>
 
-          <label htmlFor="cvv">CVV</label>
-          <input type="text" id="cvv" name="cvv" placeholder="Enter CVV" />
-
-          <button onClick={handleSubmit}>Confirm Payment</button>
-        </form>
-      </div>
-
-      <div className="order-summary">
-        <h2>Order Summary</h2>
-        <p className="plan-name">Plan Name: Basic</p>
-        <p>Billing Cycle: Monthly</p>
-        <p className="plan-price">Plan Price: ₹2000/month</p>
-      </div>
-    </div>
-  );
+            {selectedPlan && (
+                <div className="order-summary">
+                    <h2>Order Summary</h2>
+                    <p className="plan-name">Plan Name: {selectedPlan.name}</p>
+                    <p>Billing Cycle: {selectedPlan.billingCycle}</p>
+                    <p className="plan-price">Plan Price: {selectedPlan.price}</p>
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default PaymentForm;
