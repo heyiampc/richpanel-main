@@ -1,19 +1,16 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBav11xFV5GeMZxZIZNTJkozxJY7aRpZ6g",
-  authDomain: "richpanel-55eff.firebaseapp.com",
-  projectId: "richpanel-55eff",
-  storageBucket: "richpanel-55eff.appspot.com",
-  messagingSenderId: "1054785800860",
-  appId: "1:1054785800860:web:d6da0a9387b30b69363b59",
-  measurementId: "G-FP1PSW827P"
+  apiKey: "AIzaSyA9dPU4xF95XJPO6ftqNHneJ8WJ-Ka0dF8",
+  authDomain: "richpanel-53342.firebaseapp.com",
+  projectId: "richpanel-53342",
+  storageBucket: "richpanel-53342.appspot.com",
+  messagingSenderId: "393470465461",
+  appId: "1:393470465461:web:de5c4f43bf0169ce9cf5fc"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+export { auth };
